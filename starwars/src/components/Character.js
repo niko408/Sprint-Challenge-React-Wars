@@ -1,28 +1,32 @@
-// Write your Character component here
-import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
+// // Write your Character component here
+import React from 'react';
+import styled from 'styled-components';
 
-function getCharacter(id) {
-    const [character, setCharacter] = useState('')
-        useEffect(() => {
-            const fetchCharacter = (id) => 
-            fetch(`https://swapi.dev/api/people/${id}/`)
-                .then(response => response.json())
-                .then(id => {
-                    console.log(id);
-                    setCharacter(id.name);
-                });
-            fetchCharacter(id);
-    }, [id])
-    return character;
-}
+const CharDiv = styled.div`
+    width: 50%;
+    margin: 5% auto;
+    `;
 
-function Character({ id }){
-    const character = getCharacter(id)
-    
+const CharText = styled.p`
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 5%;
+    font-size: 2rem;
+    `;
+
+const Character = props => {
+    const {charProps} = props;
     return (
-        <div className = 'character'>
-            <div>{id}</div>
+        <div>
+            <CharDiv>
+                    {charProps.map((charProps, index) => (
+                        <CharText key={index}>{charProps.name} weighs {charProps.mass} kg.</CharText>
+                    ))}
+            </CharDiv>
         </div>
-    );
+    )
 }
+
+export default Character;
